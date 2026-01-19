@@ -15,9 +15,8 @@ export default function FavoriteButton({ isFavorite, className }: FavoriteButton
     const buttonStyle = `size-6 hover-75 fill-[url(#ipm-gradient)] ${className ? className : ""}`
 
     return (
-        <>
-            {buttonFill ? <IoMdHeart className={buttonStyle} onClick={() => setButtonFill(!buttonFill)} />
-                : <IoMdHeartEmpty className={buttonStyle} onClick={() => setButtonFill(!buttonFill)} /> }
+        <figure onClick={() => setButtonFill(!buttonFill)}>
+            {buttonFill ? <IoMdHeart className={buttonStyle} /> : <IoMdHeartEmpty className={buttonStyle} />}
 
             <svg width="0" height="0">
                 <linearGradient id="ipm-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
@@ -25,6 +24,6 @@ export default function FavoriteButton({ isFavorite, className }: FavoriteButton
                     <stop stopColor="#EE0979" offset="100%" />
                 </linearGradient >
             </svg>
-        </>
+        </figure>
     )
 }
