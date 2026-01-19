@@ -31,22 +31,4 @@ export default function SongCard({ song, thumbnail }: SongCardProps) {
             <p className="text-xs font-light text-grey-light">{formatMilliseconds(song.duration_ms)}</p>
         </div>
     )
-    // return (
-    //     <DefaultCard
-    //         item={{
-    //             link: {
-    //                 href: `/music/songs/${song.id}`
-    //             },
-    //             heading: song.name,
-    //             subheading: song.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name),
-    //             image: {
-    //                 url: song.album.images[0].url,
-    //                 alt: `${song.name} cover`,
-    //                 width: song.album.images[0].width,
-    //                 height: song.album.images[0].height
-    //             },
-    //             ...(size && ({ size: size }))
-    //         }}
-    //     />
-    // )
 }
