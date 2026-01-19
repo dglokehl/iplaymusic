@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+    --spacing-default: 1.25rem;
+
+    --spacing-header: 4.6875rem;
+    --height-header: 4.6875rem;
+
+    --spacing-footer: 4.0625rem;
+    --height-footer: 4.0625rem;
+
+    --breakpoint-xs: 32rem;
+    --breakpoint-2xs: 22.5rem;
+    --breakpoint-3xs: 18.75rem;
+
+    --text-2xs: 0.625rem;
+
+    --color-bg: #341931;
+
+    --color-white: #FFFFFF;
+    --color-grey-light: #AFAFAF;
+    --color-grey-medium: #BABFC9;
+    --color-grey-dark: #696D74;
+
+    --color-ipm-black: #111625;
+    --color-ipm-orange: #FF6A00;
+    --color-ipm-magenta: #EE0979;
+    --color-ipm-magenta-light: #FF1168;
+}
+
+:root {
+    background-color: var(--color-bg);
+    color: var(--color-white);
+}
+
+
+/* --- HOVER UTILITIES --- */
+
+@utility hover-75 {
+    @apply cursor-pointer select-none duration-75 hover:opacity-75;
+}
+
+@utility hover-bg {
+    @apply cursor-pointer select-none duration-75 hover:bg-white/10;
+}
+
+@utility hover-brightness {
+    @apply cursor-pointer select-none duration-75 hover:brightness-150 hover:contrast-85;
+}
+
+@utility hover-scale {
+    @apply cursor-pointer select-none duration-75 hover:scale-105;
+}
+
+
+/* --- COLOR UTILITIES --- */
+
+@utility bg-ipm-gradient {
+    @apply bg-linear-to-br from-ipm-orange to-ipm-magenta;
+}
+
+@utility bg-ipm-gradient-text {
+    @apply inline-block bg-ipm-gradient bg-clip-text text-transparent;
+}
+
+
+/* --- ????? UTILITIES --- */
+
+@utility scrollbar-hidden {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+
+/* --- COMPONENTS --- */
+
+@layer components {
+    .heading-page {
+        @apply text-4xl font-bold bg-ipm-gradient-text;
+    }
+}
