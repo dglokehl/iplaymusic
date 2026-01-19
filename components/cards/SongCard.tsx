@@ -1,6 +1,8 @@
+import Link from "next/link";
 import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
 import { formatMilliseconds } from "@/utils/helpers";
+import MapArtistLinks from "../map/MapArtistLinks";
 
 type SongCardProps = {
     song: any;
@@ -25,7 +27,9 @@ export default function SongCard({ song, thumbnail }: SongCardProps) {
                 }
                 <div className="flex-1">
                     <p className="text-sm font-bold line-clamp-1">{song.name}</p>
-                    <p className="text-xs font-light text-grey-light line-clamp-1">{song.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name)}</p>
+                    <p className="text-xs font-light text-grey-light line-clamp-1">
+                        <MapArtistLinks artists={song.artists} />
+                    </p>
                 </div>
             </div>
             <p className="text-xs font-light text-grey-light">{formatMilliseconds(song.duration_ms)}</p>

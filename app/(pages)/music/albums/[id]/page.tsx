@@ -4,6 +4,7 @@ import { fetchSpotify } from "@/app/api/fetches";
 import Wrapper from "@/components/Wrapper";
 import SongCard from "@/components/cards/SongCard";
 import FavoriteButton from "@/components/FavoriteButton";
+import MapArtistLinks from "@/components/map/MapArtistLinks";
 
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
@@ -46,11 +47,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
                 <div className="text-center">
                     <h2 className="text-xl font-bold">{album.name}</h2>
                     <h3 className="text-base text-grey-light">
-                        {album.artists.map((artist: any, i: number) => (
-                            <Link href={`/music/artists/${artist.id}`} className="hover-75" key={i}>
-                                {i >= 1 ? `, ${artist.name}` : artist.name}
-                            </Link>
-                        ))}
+                        <MapArtistLinks artists={album.artists} />
                     </h3>
                 </div>
             </section>
