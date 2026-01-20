@@ -56,11 +56,17 @@
 /* --- COLOR UTILITIES --- */
 
 @utility bg-ipm-gradient {
+    @apply bg-linear-to-tl from-ipm-orange to-ipm-magenta;
+}
+@utility bg-ipm-gradient-reverse {
     @apply bg-linear-to-br from-ipm-orange to-ipm-magenta;
 }
 
 @utility bg-ipm-gradient-text {
     @apply inline-block bg-ipm-gradient bg-clip-text text-transparent;
+}
+@utility bg-ipm-gradient-text-reverse {
+    @apply inline-block bg-ipm-gradient-reverse bg-clip-text text-transparent;
 }
 
 

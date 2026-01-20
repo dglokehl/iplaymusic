@@ -11,7 +11,7 @@ export default function Wrapper({ children, title, className, ...rest }: Wrapper
         <>
             <Header title={title ? title : ""} />
 
-            <main className={`pt-header px-default pb-default ${className ? className : ""}`}>
+            <main className={`mb-footer pt-header px-default pb-default ${className ? className : ""}`}>
                 {children}
             </main>
         </>
