@@ -42,7 +42,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                         <h2 className="heading-page text-white">{artist.name}</h2>
                         <p className="mt-3 text-sm font-medium">{artist.followers.total} followers</p>
                     </div>
-                    <div className="flex gap-2 overflow-x-scroll">
+                    <div className="flex gap-2 overflow-x-scroll scrollbar-hidden">
                         {artist.genres.map((genre: any, i: number) => <GenreCard body={genre} key={i} />)}
                     </div>
                 </div>
