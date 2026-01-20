@@ -7,7 +7,7 @@ export async function proxy(request: NextRequest) {
     // console.log(request)
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("IPM_AT")
-    if (!accessToken) return NextResponse.redirect(new URL("/login", request.url))
+    if (!accessToken) return NextResponse.redirect(new URL("/landing", request.url))
 }
 
 export const config = {
