@@ -1,3 +1,5 @@
+import type { CardSize } from "@/components/cards/DefaultCard"
+
 export function formatLength(input: number, format?: "short") {
     const hours = Math.floor(input / 60 / 60)
     const minutes = Math.floor(input / 60) - (hours * 60)
@@ -48,4 +50,35 @@ export function formatReleaseDate(yeardate: string, format?: "year" | "short") {
     console.log(dateFormatted)
     if (format === "year") return yeardate.slice(0, 4)
     return dateFormatted
+}
+
+
+export function getCoverImage(images: any[], size?: CardSize) {
+    if (images.length < 1) {
+        return {
+            url: size === "xs" ? "/placeholder-xs.png" : "/placeholder.png",
+            width: size === "xs" ? 64 : 300,
+            height: size === "xs" ? 64 : 300,
+        }
+    }
+
+    let coverMin = 200
+    let coverMax = 400
+
+    if (size === "xs") {
+        coverMin = 10
+        coverMax = 200
+    }
+
+    let coverImage = images.filter((image: any) => image.width > coverMin && image.width < coverMax)
+    if (coverImage.length < 1) {
+        if (!images[0].width) images[0].width = 300
+        if (!images[0].height) images[0].height = 300
+        return images[0]
+    }
+    // console.log(coverImage[0])
+
+    if (!coverImage[0].width) coverImage[0].width = 300
+    if (!coverImage[0].height) coverImage[0].height = 300
+    return coverImage[0]
 }

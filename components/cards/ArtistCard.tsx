@@ -1,3 +1,4 @@
+import { getCoverImage } from "@/utils/helpers"
 import DefaultCard from "./DefaultCard"
 import type { CardSize } from "./DefaultCard"
 
@@ -15,10 +16,10 @@ export default async function ArtistCard({ artist, size }: ArtistCardProps) {
                 },
                 heading: artist.name,
                 image: {
-                    url: artist.images[0].url,
+                    url: getCoverImage(artist.images, size && size).url,
                     alt: `${artist.name} cover`,
-                    width: 300,
-                    height: 300,
+                    width: getCoverImage(artist.images, size && size).width,
+                    height: getCoverImage(artist.images, size && size).height,
                     className: "rounded-full"
                 },
                 ...(size && ({ size: size }))

@@ -1,3 +1,4 @@
+import { getCoverImage } from "@/utils/helpers"
 import DefaultCard from "./DefaultCard"
 import type { CardSize } from "./DefaultCard"
 
@@ -16,10 +17,10 @@ export default function AlbumCard({ album, size }: AlbumCardProps) {
                 heading: album.name,
                 subheading: album.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name),
                 image: {
-                    url: album.images[0].url,
+                    url: getCoverImage(album.images, size && size).url,
                     alt: `${album.name} cover`,
-                    width: album.images[0].width,
-                    height: album.images[0].height
+                    width: getCoverImage(album.images, size && size).width,
+                    height: getCoverImage(album.images, size && size).height
                 },
                 ...(size && ({ size: size }))
             }}

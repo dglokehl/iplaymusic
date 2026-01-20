@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
-import { formatMilliseconds } from "@/utils/helpers";
+import { formatMilliseconds, getCoverImage } from "@/utils/helpers";
 import MapArtistLinks from "../map/MapArtistLinks";
 
 type SongCardProps = {
@@ -17,10 +17,10 @@ export default function SongCard({ song, thumbnail }: SongCardProps) {
                 </figure>
                 {thumbnail &&
                     <Image
-                        src={!song.is_local ? song.album.images[0].url : "/placeholder.png"}
+                        src={getCoverImage(song.album.images, "xs").url}
                         alt="Background element"
-                        width={!song.is_local ? song.album.images[0].width : 300}
-                        height={!song.is_local ? song.album.images[0].height : 300}
+                        width={getCoverImage(song.album.images, "xs").width}
+                        height={getCoverImage(song.album.images, "xs").height}
                         className="mr-2.5 size-10 rounded"
                     />
                 }

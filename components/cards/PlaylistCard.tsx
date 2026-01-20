@@ -1,3 +1,4 @@
+import { getCoverImage } from "@/utils/helpers";
 import DefaultCard from "./DefaultCard"
 import type { CardSize } from "./DefaultCard"
 
@@ -16,10 +17,10 @@ export default async function PlaylistCard({ playlist, size }: PlaylistCardProps
                 heading: playlist.name,
                 subheading: playlist.owner.display_name,
                 image: {
-                    url: playlist.images[0].url,
+                    url: getCoverImage(playlist.images, size && size).url,
                     alt: `${playlist.name} cover`,
-                    width: 300,
-                    height: 300
+                    width: getCoverImage(playlist.images, size && size).width,
+                    height: getCoverImage(playlist.images, size && size).height
                 },
                 ...(size && ({ size: size }))
             }}
