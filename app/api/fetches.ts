@@ -13,8 +13,6 @@ export async function fetchSpotify(link: string) {
         },
         next: { revalidate: 3600 }
     })
-    // console.log(res)
 
-    // const data = await res.json()
     return res.json()
 }
