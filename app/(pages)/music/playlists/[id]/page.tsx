@@ -15,30 +15,32 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
     const { id } = await params;
     console.log("params/id:", id)
 
-    const playlist = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}`)
-    console.log(playlist)
+    const playlistDetails = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}?fields=collaborative,description,followers,images,name,owner,public`)
+    console.log("playlistDetails:", playlistDetails)
+
+    const playlistItems = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}/tracks?limit=50&offset=0`)
+    console.log("playlistItems:", playlistItems)
+
     const userPlaylist = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}/followers/contains`)
     const isFavorite = userPlaylist[0]
 
     return (
         <DetailsPageLayout
-            name={playlist.name}
-            image={{
-                url: playlist.images[0].url
-            }}
+            name={playlistDetails.name}
+            images={playlistDetails.images}
             playlist={{
                 owner: {
-                    id: playlist.owner.id,
-                    display_name: playlist.owner.display_name
+                    id: playlistDetails.owner.id,
+                    display_name: playlistDetails.owner.display_name
                 },
                 followers: {
-                    total: playlist.followers.total
+                    total: playlistDetails.followers.total
                 },
                 tracks: {
-                    total: playlist.tracks.total
+                    total: playlistItems.total
                 }
             }}
-            tracks={playlist.tracks.items}
+            tracks={playlistItems.items}
             isFavorite={isFavorite}
         />
     )

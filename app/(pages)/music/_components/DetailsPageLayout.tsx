@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getTotalLength, formatReleaseDate } from "@/utils/helpers";
+import { getTotalLength, formatReleaseDate, getCoverImage } from "@/utils/helpers";
 import { getUserId } from "@/utils/cookies";
 import Wrapper from "@/components/Wrapper";
 import SongCard from "@/components/cards/SongCard";
@@ -9,11 +9,11 @@ import FavoriteButton from "@/components/FavoriteButton";
 
 type DetailsPageLayoutProps = {
     name: string;
-    image: {
+    images: {
         url: string;
         width?: number;
         height?: number;
-    }
+    }[]
     album?: {
         artists: any[]
         release_date: string;
@@ -38,7 +38,7 @@ type DetailsPageLayoutProps = {
     isFavorite: boolean;
 }
 
-export default async function DetailsPageLayout({ name, image, album, playlist, tracks, isFavorite }: DetailsPageLayoutProps) {
+export default async function DetailsPageLayout({ name, images, album, playlist, tracks, isFavorite }: DetailsPageLayoutProps) {
     const userId = await getUserId()
 
     return (
@@ -48,16 +48,17 @@ export default async function DetailsPageLayout({ name, image, album, playlist, 
                 alt="Background element"
                 width={450}
                 height={273}
-                className={`wrapper-default w-full absolute ${album ? "top-0" : playlist && "-top-10"} inset-x-0 -z-1 2xs:-top-32 xs:-top-48 md:-top-64 lg:-top-96`}
+                className={`wrapper-default w-full absolute ${album ? "top-0" : playlist && "-top-10"} 2xs:-top-32 xs:-top-48 md:-top-64 lg:-top-96 inset-x-0 -z-1`}
             />
 
             <section className="flex flex-col items-center gap-4">
                 <Image
-                    src={image.url}
+                    src={getCoverImage(images).url}
                     alt="Background element"
-                    width={image.width ? image.width : 300}
-                    height={image.height ? image.height : 300}
-                    className={`${album ? "size-48" : playlist && "size-39"} rounded self-center hover-scale`}
+                    width={getCoverImage(images).width}
+                    height={getCoverImage(images).height}
+                    quality={100}
+                    className={`${album ? "size-48" : playlist && "size-39"} sm:size-56 object-cover rounded hover-scale`}
                 />
                 <div className="text-center">
                     <h2 className="text-xl font-bold">{name}</h2>

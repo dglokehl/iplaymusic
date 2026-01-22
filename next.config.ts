@@ -8,11 +8,12 @@ const nextConfig: NextConfig = {
             new URL("https://**.spotifycdn.com/**"),
             {
                 protocol: "https",
-                hostname: "scontent-bom2-2.xx.fbcdn.net",
+                hostname: "**.xx.fbcdn.net",
                 port: "",
-                pathname: "/v/**",
+                pathname: "/**",
             },
         ],
+        qualities: [25, 50, 75, 100],
     },
 };
 

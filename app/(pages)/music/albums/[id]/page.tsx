@@ -24,9 +24,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
     return (
         <DetailsPageLayout
             name={album.name}
-            image={{
-                url: album.images[0].url
-            }}
+            images={album.images}
             album={{
                 artists: album.artists,
                 release_date: album.release_date,
