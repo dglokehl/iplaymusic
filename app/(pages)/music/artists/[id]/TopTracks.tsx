@@ -14,7 +14,7 @@ export default function TopTracks({ tracks, className }: TopTracksProps) {
     return (
        <section className="space-y-1">
             <h3 className="font-bold">Top Songs</h3>
-            {tracks.map((track: any, i: number) => !open ? i < 4 && <SongCard song={track} key={i} /> : <SongCard song={track} key={i} />)}
+            {tracks.map((track: any, i: number) => !open ? i < 4 && <SongCard song={track} thumbnail key={i} /> : <SongCard song={track} thumbnail key={i} />)}
             <p className="inline-block text-sm text-grey-light hover-75" onClick={() => setOpen(!open)}>{!open ? "Show more" : "Show less"}</p>
         </section>
     )

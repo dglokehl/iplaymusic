@@ -14,7 +14,7 @@ export default async function BrowsePage() {
     console.log(categories.categories)
 
     return (
-        <Wrapper title={pageTitle} className="space-y-6">
+        <Wrapper className="space-y-6">
             <h2 className="heading-page">Browse</h2>
             <SectionWrapper heading={{ body: "Categories" }}>
                 <div className="grid grid-cols-2 gap-3">

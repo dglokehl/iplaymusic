@@ -10,7 +10,7 @@ export default async function ArtistsPage() {
     console.log(artists.artists)
 
     return (
-        <Wrapper title="Albums">
+        <Wrapper>
             <h1 className="mb-6 heading-page">Followed Artists</h1>
             <ListPageItems
                 initFetch={artists.artists}

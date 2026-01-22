@@ -29,7 +29,7 @@ export default function LandingGallery({ children, className, ...rest }: Landing
     const activeStyle = "bg-white fill-[url(#ipm-gradient)] stroke-[url(#ipm-gradient)]"
 
     return (
-        <section className="text-center">
+        <section className="wrapper-default text-center">
             <h1 className="text-2xl font-bold whitespace-pre-wrap">{galleryArr[index].heading}</h1>
             <p className="mt-3 text-sm font-light">{galleryArr[index].body}</p>
 

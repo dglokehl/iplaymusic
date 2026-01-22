@@ -77,6 +77,10 @@
     @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
+@utility wrapper-default {
+    @apply mx-auto max-w-5xl;
+}
+
 
 /* --- COMPONENTS --- */
 

@@ -42,13 +42,13 @@ export default async function DetailsPageLayout({ name, image, album, playlist, 
     const userId = await getUserId()
 
     return (
-        <Wrapper title={name} className="space-y-6">
+        <Wrapper className="space-y-6">
             <Image
                 src="/sound-wave.png"
                 alt="Background element"
                 width={450}
                 height={273}
-                className={`w-full absolute ${album ? "top-0" : playlist && "-top-10"} inset-x-0 -z-1`}
+                className={`wrapper-default w-full absolute ${album ? "top-0" : playlist && "-top-10"} inset-x-0 -z-1 2xs:-top-32 xs:-top-48 md:-top-64 lg:-top-96`}
             />
 
             <section className="flex flex-col items-center gap-4">

@@ -1,5 +1,5 @@
 import Image from "next/image"
-import SplashLogo from "@/components/SplashLogo"
+import SplashLogo from "@/app/(login)/_components/SplashLogo"
 import LandingGallery from "../_components/LandingGallery"
 
 export default async function LandingPage() {

@@ -29,7 +29,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
 
     return (
         <>
-            <section className="mb-2 w-full relative max-xs:aspect-square xs:h-64">
+            <section className="wrapper-default mb-2 w-full relative max-xs:aspect-square xs:h-64">
                 <Image
                     src={artist.images[0].url}
                     alt={`${artist.name} header image`}
@@ -48,7 +48,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                 </div>
             </section>
         
-            <Wrapper title={artist.name} className="pt-0! space-y-5">
+            <Wrapper className="pt-0! space-y-5">
                 <TopTracks tracks={artistTopTracks.tracks} />
                 <SectionWrapper heading={{ body: "Discography", button: { body: "Show All", href: `/music/artists/${id}/albums` } }}>
                     <div className="flex overflow-x-scroll scrollbar-hidden">

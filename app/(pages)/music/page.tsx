@@ -23,7 +23,7 @@ export default async function MusicLibraryPage() {
     console.log("userTracks:", userTracks.items)
     
     return (
-        <Wrapper title={pageTitle} className="space-y-6">
+        <Wrapper className="space-y-6">
             <h2 className="heading-page">Library</h2>
             <SectionWrapper heading={{ body: "Your Playlists", button: { body: "View All", href: "/music/playlists" } }}>
                 <div className="flex overflow-x-scroll scrollbar-hidden">

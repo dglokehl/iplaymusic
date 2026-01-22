@@ -10,7 +10,7 @@ export default async function AlbumsPage() {
     console.log(albums)
 
     return (
-        <Wrapper title="Albums">
+        <Wrapper>
             <h1 className="mb-6 heading-page">Your Albums</h1>
             <ListPageItems
                 initFetch={albums}

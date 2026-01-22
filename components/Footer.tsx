@@ -35,7 +35,7 @@ export default function Footer() {
 
     return (
         <footer className="px-default h-footer flex items-center fixed bottom-0 inset-x-0 z-999 bg-ipm-black">
-            <nav className="size-full flex justify-around items-center gap-5 *:*:size-6 *:cursor-pointer *:select-none *:hover-brightness">
+            <nav className="wrapper-default size-full flex justify-around items-center gap-5 *:*:size-6 *:cursor-pointer *:select-none *:hover-brightness">
                 {footerItems.map((item, i) => item.href ? (
                         <Link href={item.href} key={i} className={`/${pathnameArr[1]}` !== item.href ? "*:fill-[url(#ipm-gradient)]" : ""}>
                             {item.body}
