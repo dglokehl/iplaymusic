@@ -54,7 +54,7 @@ export function formatReleaseDate(yeardate: string, format?: "year" | "short") {
 
 
 export function getCoverImage(images: any[], size?: CardSize) {
-    if (images.length < 1) {
+    if (!images || images.length < 1) {
         return {
             url: size === "xs" ? "/placeholder-xs.png" : "/placeholder.png",
             width: size === "xs" ? 64 : 300,

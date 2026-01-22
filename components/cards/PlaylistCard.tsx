@@ -7,7 +7,7 @@ type PlaylistCardProps = {
     size?: CardSize;
 }
 
-export default async function PlaylistCard({ playlist, size }: PlaylistCardProps) {
+export default function PlaylistCard({ playlist, size }: PlaylistCardProps) {
     return (
         <DefaultCard
             item={{

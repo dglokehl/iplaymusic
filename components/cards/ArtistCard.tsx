@@ -7,7 +7,7 @@ type ArtistCardProps = {
     size?: CardSize;
 }
 
-export default async function ArtistCard({ artist, size }: ArtistCardProps) {
+export default function ArtistCard({ artist, size }: ArtistCardProps) {
     return (
         <DefaultCard
             item={{

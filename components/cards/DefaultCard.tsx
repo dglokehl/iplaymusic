@@ -28,7 +28,7 @@ export default function DefaultCard({ item }: DefaultCardProps) {
     let cardSize = "w-48"
     if (item.size === "xs") cardSize = "w-24"
     if (item.size === "sm") cardSize = "w-32"
-    if (item.size === "lg") cardSize = "w-64"
+    if (item.size === "lg") cardSize = "w-full sm:p-3 sm:pb-5"
 
     return (
         <Link href={item.link.href} target={item.link.external ? "_blank" : ""} className="rounded-lg overflow-clip">

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { fetchSpotify } from "../fetches"
+import { fetchSpotify } from "../../fetches"
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     let limit = searchParams.get("limit")
     let offset = searchParams.get("offset")
 
-    const albums = await fetchSpotify(`https://api.spotify.com/v1/me/albums?limit=${limit}&offset=${offset}`)
+    const albums = await fetchSpotify(`https://api.spotify.com/v1/me/tracks?limit=${limit}&offset=${offset}`)
 
     return NextResponse.json(albums)
 }

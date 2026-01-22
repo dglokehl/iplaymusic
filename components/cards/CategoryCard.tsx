@@ -19,7 +19,7 @@ export default function CategoryCard({ category, className, ...rest }: CategoryC
                     className="size-full object-cover opacity-50"
                 />
                 <div className="p-3 absolute inset-0 flex justify-center items-center">
-                    <h3 className="text-3xl font-bold text-center max-2xs:text-xl max-3xs:text-lg">
+                    <h3 className="text-3xl font-bold text-center max-3xs:text-xl max-4xs:text-lg">
                         {category.name}
                     </h3>
                 </div>
