@@ -1,18 +1,16 @@
-import { cookies } from "next/headers"
+import { getAccessToken } from "@/utils/cookies"
 
 export async function fetchSpotify(link: string) {
-    const cookieStore = await cookies()
-    if (!cookieStore.has("IPM_AT")) return
-
-    const accessToken = cookieStore.get("IPM_AT")
+    const accessToken = await getAccessToken()
     if (!accessToken) return
 
     const res = await fetch(link, {
         headers: {
-            Authorization: `Bearer ${accessToken.value}`
+            Authorization: `Bearer ${accessToken}`
         },
         next: { revalidate: 3600 }
     })
+    if (!res.ok) return
 
     return res.json()
 }

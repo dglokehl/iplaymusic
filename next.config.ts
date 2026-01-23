@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
                 port: "",
                 pathname: "/**",
             },
+            {
+                protocol: "https",
+                hostname: "**.fbsbx.com",
+                port: "",
+                pathname: "/**",
+            },
         ],
         qualities: [25, 50, 75, 100],
     },

@@ -9,7 +9,7 @@ type CategoryCardProps = {
 
 export default function CategoryCard({ category, className, ...rest }: CategoryCardProps) {
     return (
-        <Link href={category.href} className="rounded-lg overflow-hidden" {...rest}>
+        <Link href={`/search?q=${category.name}`} className="rounded-lg overflow-hidden" {...rest}>
             <article className="relative rounded-lg hover-bg">
                 <Image
                     src={getCoverImage(category.icons).url}

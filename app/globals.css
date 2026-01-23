@@ -81,6 +81,10 @@
     @apply mx-auto max-w-5xl;
 }
 
+@utility card-grid {
+    @apply grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6;
+}
+
 
 /* --- COMPONENTS --- */
 

@@ -33,10 +33,10 @@ export default function LandingGallery({ children, className, ...rest }: Landing
             <h1 className="text-2xl font-bold whitespace-pre-wrap">{galleryArr[index].heading}</h1>
             <p className="mt-3 text-sm font-light">{galleryArr[index].body}</p>
 
-            <div className="mt-10 flex justify-center items-center gap-5 *:p-3 *:size-18 *:border-3 *:border-white *:rounded-full *:hover-scale">
-                <IoRadioOutline className={index == 0 ? activeStyle : ""} onClick={() => setIndex(0)} />
-                <IoHeart className={index == 1 ? activeStyle : ""} onClick={() => setIndex(1)} />
-                <IoMusicalNote className={index == 2 ? activeStyle : ""} onClick={() => setIndex(2)} />
+            <div className="mt-10 flex justify-center items-center gap-5 *:duration-200 *:p-3 *:size-18 *:border-3 *:border-white *:rounded-full *:hover-scale">
+                <IoRadioOutline className={index == 0 ? activeStyle : "bg-transparent"} onClick={() => setIndex(0)} />
+                <IoHeart className={index == 1 ? activeStyle : "bg-transparent"} onClick={() => setIndex(1)} />
+                <IoMusicalNote className={index == 2 ? activeStyle : "bg-transparent"} onClick={() => setIndex(2)} />
             </div>
 
             <div className="mt-8 flex justify-between items-center">

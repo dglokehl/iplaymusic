@@ -1,13 +1,18 @@
 import Link from "next/link"
-import React from "react"
+import { Fragment } from "react"
 
-export default function MapArtistLinks({ artists }: { artists: any[] }) {
+type MapArtistLinksProps = {
+    artists: any[];
+    className?: string;
+}
+
+export default function MapArtistLinks({ artists, className }: MapArtistLinksProps) {
     return artists.map((artist: any, i: number) => (
-        <React.Fragment key={i}>
-            <Link href={`/music/artists/${artist.id}`} className="hover-75">
+        <Fragment key={i}>
+            <Link href={`/music/artists/${artist.id}`} className={`hover-75 ${className ? className : ""}`}>
                 {artist.name}
             </Link>
             {i < artists.length - 1 && ", "}
-        </React.Fragment>
+        </Fragment>
     ))
 }

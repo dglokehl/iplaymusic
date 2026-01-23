@@ -1,6 +1,10 @@
 import { fetchSpotify } from "@/app/api/fetches";
-import Wrapper from "@/components/Wrapper"
+import Main from "@/components/layout/Main";
 import ListPageItems from "../_components/ListPageItems";
+
+export const metadata = {
+    title: "Playlists"
+}
 
 export default async function PlaylistsPage() {
     const limit = 48
@@ -10,13 +14,13 @@ export default async function PlaylistsPage() {
     console.log(playlists)
 
     return (
-        <Wrapper>
-            <h1 className="mb-6 heading-page">Your Playlists</h1>
+        <Main>
+            <h1 className="heading-page">Your Playlists</h1>
             <ListPageItems
                 initFetch={playlists}
                 route={route}
                 type="playlist"
             />
-        </Wrapper>
+        </Main>
     )
 }

@@ -1,16 +1,14 @@
-import Image from "next/image"
 import { fetchSpotify } from "@/app/api/fetches"
 import { getCoverImage } from "@/utils/helpers"
-import Wrapper from "@/components/Wrapper"
+import Main from "@/components/layout/Main"
 import UserTop from "./_components/UserTop"
-import SectionWrapper from "@/components/SectionWrapper"
-import PlaylistCard from "@/components/cards/PlaylistCard"
+import CardSection from "@/components/CardSection"
 
 export const metadata = {
-    title: "User"
+    title: "Profile"
 }
 
-export default async function UserPage() {
+export default async function ProfilePage() {
     const profile = await fetchSpotify("https://api.spotify.com/v1/me")
     console.log("profile", profile)
 
@@ -23,13 +21,11 @@ export default async function UserPage() {
     console.log("playlists", playlists.items)
 
     return (
-        <Wrapper className="space-y-8">
+        <Main className="space-y-8">
             <div className="flex items-center gap-4">
-                <Image
+                <img
                     src={getCoverImage(profile.images).url}
-                    alt={`${profile.display_name} profile picture`}
-                    width={getCoverImage(profile.images).width}
-                    height={getCoverImage(profile.images).height}
+                    alt={profile.display_name}
                     className="size-24 rounded-full"
                 />
                 <div>
@@ -38,14 +34,15 @@ export default async function UserPage() {
                     <p className="text-xs text-grey-light">Subscription: {profile.product}</p>
                 </div>
             </div>
+
             <UserTop initItems={topTracks.items} type="tracks" />
             <UserTop initItems={topArtists.items} type="artists" />
 
-            <SectionWrapper heading={{ body: "Public Playlists", button: { body: "View All", href: "/music/playlists" } }}>
-                <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {playlists.items.map((item: any, i: number) => <PlaylistCard playlist={item} key={i} />)}
-                </div>
-            </SectionWrapper>
-        </Wrapper>
+            <CardSection
+                heading={{ body: "Public Playlists", button: { body: "View All", href: "/music/playlists" } }}
+                obj={playlists}
+                type="playlists"
+            />
+        </Main>
     )
 }

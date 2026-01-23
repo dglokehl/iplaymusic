@@ -24,7 +24,7 @@ const footerItems = [
         body: <MdLibraryMusic />
     },
     {
-        href: "/user",
+        href: "/profile",
         body: <BsPersonCircle />
     },
 ]

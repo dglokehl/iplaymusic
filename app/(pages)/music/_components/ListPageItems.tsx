@@ -29,7 +29,7 @@ export default function ListPageItems({ initFetch, route, type, className }: Lis
 
     const [listItems, setListItems] = useState(initFetch.items)
 
-    const [hasMore, setHasMore] = useState(type === "artist" ? initFetch.cursors.after : initFetch.offset + limit < initFetch.total)
+    const [hasMore, setHasMore] = useState(type === "artist" ? initFetch.cursors.after : (initFetch.offset + limit) < initFetch.total)
     const [loading, setLoading] = useState(false)
     
     const observerRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +74,7 @@ export default function ListPageItems({ initFetch, route, type, className }: Lis
 
     return (
         <>
-            <div className={`${type === "track" ? "space-y-1" : "grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6"} ${className ? className : ""}`}>
+            <div className={`${type === "track" ? "space-y-1" : "card-grid"} ${className ? className : ""}`}>
                 <MapListPageItems listItems={listItems} type={type} />
             </div>
             {hasMore && <div className="h-px" ref={observerRef}></div>}

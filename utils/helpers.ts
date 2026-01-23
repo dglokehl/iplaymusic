@@ -1,4 +1,4 @@
-import type { CardSize } from "@/components/cards/DefaultCard"
+import type { CardSize } from "@/components/cards/Card"
 
 export function formatLength(input: number, format?: "short") {
     const hours = Math.floor(input / 60 / 60)

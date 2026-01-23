@@ -1,10 +1,9 @@
 import Image from "next/image";
 import { fetchSpotify } from "@/app/api/fetches"
-import Wrapper from "@/components/Wrapper"
+import Main from "@/components/layout/Main";
 import TopTracks from "./TopTracks";
 import GenreCard from "@/components/cards/GenreCard";
-import AlbumCard from "@/components/cards/AlbumCard";
-import SectionWrapper from "@/components/SectionWrapper";
+import CardSection from "@/components/CardSection";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -25,7 +24,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
     const artistTopTracks = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}/top-tracks`)
     console.log("artistTopTracks", artistTopTracks.tracks)
     const artistAlbums = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}/albums?limit=10`)
-    console.log("artistAlbums", artistAlbums.items)
+    console.log("artistAlbums", artistAlbums)
 
     return (
         <>
@@ -39,7 +38,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                 />
                 <div className="pt-header px-default pb-9 h-full flex flex-col justify-between">
                     <div>
-                        <h2 className="heading-page text-white">{artist.name}</h2>
+                        <h1 className="heading-page text-white">{artist.name}</h1>
                         <p className="mt-3 text-sm font-medium">{artist.followers.total} followers</p>
                     </div>
                     <div className="flex gap-2 overflow-x-scroll scrollbar-hidden">
@@ -48,14 +47,17 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                 </div>
             </section>
         
-            <Wrapper className="pt-0! space-y-5">
-                <TopTracks tracks={artistTopTracks.tracks} />
-                <SectionWrapper heading={{ body: "Discography", button: { body: "Show All", href: `/music/artists/${id}/albums` } }}>
-                    <div className="flex overflow-x-scroll scrollbar-hidden">
-                        {artistAlbums.items.map((album: any, i: number) => <AlbumCard album={album} key={i} />)}
-                    </div>
-                </SectionWrapper>
-            </Wrapper>
+            <Main className="pt-default!">
+                <div className="space-y-2">
+                    <h3 className="font-bold">Top Songs</h3>
+                    <TopTracks tracks={artistTopTracks.tracks} />
+                </div>
+                <CardSection
+                    heading={{ body: "Discography", button: { body: "Show All", href: `/music/artists/${id}/albums` } }}
+                    obj={artistAlbums}
+                    type="artistAlbums"
+                />
+            </Main>
         </>
     )
 }

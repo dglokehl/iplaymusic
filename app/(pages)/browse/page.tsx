@@ -1,12 +1,10 @@
-import Wrapper from "@/components/Wrapper"
-import SectionWrapper from "@/components/SectionWrapper"
+import Main from "@/components/layout/Main"
 import CategoryCard from "@/components/cards/CategoryCard"
 
 import { fetchSpotify } from "@/app/api/fetches"
 
-const pageTitle = "Browse"
 export const metadata = {
-    title: pageTitle
+    title: "Browse"
 }
 
 export default async function BrowsePage() {
@@ -14,13 +12,14 @@ export default async function BrowsePage() {
     console.log(categories.categories)
 
     return (
-        <Wrapper className="space-y-6">
-            <h2 className="heading-page">Browse</h2>
-            <SectionWrapper heading={{ body: "Categories" }}>
+        <Main>
+            <h1 className="heading-page">Browse</h1>
+            <div className="space-y-1">
+                <h2 className="text-lg font-bold">Categories</h2>
                 <div className="grid grid-cols-2 gap-3">
                     {categories.categories.items.map((item: any, i: number) => <CategoryCard category={item} key={i} />)}
                 </div>
-            </SectionWrapper>
-        </Wrapper>
+            </div>
+        </Main>
     )
 }

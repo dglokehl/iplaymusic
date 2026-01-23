@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTotalLength, formatReleaseDate, getCoverImage } from "@/utils/helpers";
 import { getUserId } from "@/utils/cookies";
-import Wrapper from "@/components/Wrapper";
-import SongCard from "@/components/cards/SongCard";
+import Main from "@/components/layout/Main";
 import MapArtistLinks from "@/components/map/MapArtistLinks";
 import FavoriteButton from "@/components/FavoriteButton";
+import TrackList from "@/components/TrackList";
 
 type DetailsPageLayoutProps = {
     name: string;
@@ -42,12 +42,13 @@ export default async function DetailsPageLayout({ name, images, album, playlist,
     const userId = await getUserId()
 
     return (
-        <Wrapper className="space-y-6">
+        <Main>
             <Image
                 src="/sound-wave.png"
                 alt="Background element"
                 width={450}
                 height={273}
+                quality={100}
                 className={`wrapper-default w-full absolute ${album ? "top-0" : playlist && "-top-10"} 2xs:-top-32 xs:-top-48 md:-top-64 lg:-top-96 inset-x-0 -z-1`}
             />
 
@@ -57,7 +58,6 @@ export default async function DetailsPageLayout({ name, images, album, playlist,
                     alt="Background element"
                     width={getCoverImage(images).width}
                     height={getCoverImage(images).height}
-                    quality={100}
                     className={`${album ? "size-48" : playlist && "size-39"} sm:size-56 object-cover rounded hover-scale`}
                 />
                 <div className="text-center">
@@ -67,12 +67,12 @@ export default async function DetailsPageLayout({ name, images, album, playlist,
                             <MapArtistLinks artists={album.artists} />
                         </h3>
                     ) : playlist && playlist && (
-                        <Link href={`/user/${playlist.owner.id}`} className="text-sm text-grey-light hover-75">
+                        <Link href={`/users/${playlist.owner.id}`} className="text-sm text-grey-light hover-75">
                             {playlist.owner.display_name}
                         </Link>
                     )}
                 </div>
-                {playlist && playlist && playlist.owner.id === userId ? null : (
+                {playlist && playlist.owner.id !== userId && (
                     <div className="w-full flex justify-between items-center gap-8">
                         <div className="text-sm font-light text-grey-light">
                             {album && album ? (
@@ -86,9 +86,7 @@ export default async function DetailsPageLayout({ name, images, album, playlist,
                 )}
             </section>
 
-            <div className="mt-8 space-y-1">
-                {tracks.map((track: any, i: number) => <SongCard song={album ? track : playlist && track.track} thumbnail={playlist ? true : false} key={i} />)}
-            </div>
+            <TrackList tracks={tracks} isAlbum={album && true} />
 
             <div className="text-sm font-light text-grey-light">
                 {album && album ? (
@@ -108,6 +106,6 @@ export default async function DetailsPageLayout({ name, images, album, playlist,
                     </>
                 )}
             </div>
-        </Wrapper>
+        </Main>
     )
 }

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import ArtistCard from "@/components/cards/ArtistCard"
 import SongCard from "@/components/cards/SongCard"
+import Card from "@/components/cards/Card"
 
 type UserTopProps = {
     initItems: any[];
@@ -91,7 +91,7 @@ export default function UserTop({ initItems, type, className }: UserTopProps) {
             )}
             {type === "artists" && items.length > 0 && (
                 <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {items.map((artist: any, i: number) => <ArtistCard artist={artist} key={i} />)}
+                    {items.map((artist: any, i: number) => <Card item={artist} type="artist" key={i} />)}
                 </div>
             )}
 
