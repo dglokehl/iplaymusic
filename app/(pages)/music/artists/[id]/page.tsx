@@ -3,11 +3,11 @@ import { fetchSpotify } from "@/app/api/fetches"
 import Main from "@/components/layout/Main";
 import TopTracks from "./TopTracks";
 import GenreCard from "@/components/cards/GenreCard";
-import CardSection from "@/components/CardSection";
+import BaseSection from "@/components/wrappers/BaseSection"
+import { MapArtistAlbumCards } from "@/components/map/MapCards"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-
     const artist = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}`)
 
     return {
@@ -52,11 +52,9 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                     <h3 className="font-bold">Top Songs</h3>
                     <TopTracks tracks={artistTopTracks.tracks} />
                 </div>
-                <CardSection
-                    heading={{ body: "Discography", button: { body: "Show All", href: `/music/artists/${id}/albums` } }}
-                    obj={artistAlbums}
-                    type="artistAlbums"
-                />
+                <BaseSection heading={{ body: "Discography", button: { body: "Show All", href: `/music/artists/${id}/albums` } }}>
+                    <MapArtistAlbumCards albums={artistAlbums.items} />
+                </BaseSection>
             </Main>
         </>
     )

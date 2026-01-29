@@ -9,14 +9,14 @@ export const metadata = {
 
 export default async function BrowsePage() {
     const categories = await fetchSpotify("https://api.spotify.com/v1/browse/categories")
-    console.log(categories.categories)
+    console.log("categories:", categories.categories)
 
     return (
         <Main>
             <h1 className="heading-page">Browse</h1>
-            <div className="space-y-1">
+            <div className="space-y-2">
                 <h2 className="text-lg font-bold">Categories</h2>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="card-grid gap-3">
                     {categories.categories.items.map((item: any, i: number) => <CategoryCard category={item} key={i} />)}
                 </div>
             </div>

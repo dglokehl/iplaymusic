@@ -3,7 +3,8 @@ import { fetchSpotify } from "@/app/api/fetches";
 import { getUserId } from "@/utils/cookies";
 import { getCoverImage } from "@/utils/helpers";
 import Main from "@/components/layout/Main";
-import CardSection from "@/components/CardSection";
+import BaseSection from "@/components/wrappers/BaseSection"
+import { MapPlaylistCards } from "@/components/map/MapCards"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -39,11 +40,9 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 </div>
             </div>
 
-            <CardSection
-                heading={{ body: "Public Playlists", button: { body: "View All", href: `/users/${id}/playlists` } }}
-                obj={playlists}
-                type="playlists"
-            />
+            <BaseSection heading={{ body: "Public Playlists", button: { href: `/users/${id}/playlists` } }}>
+                <MapPlaylistCards playlists={playlists.items} />
+            </BaseSection>
         </Main>
     )
 }

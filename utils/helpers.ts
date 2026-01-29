@@ -47,7 +47,7 @@ export function getTotalLength(tracks: any[]) {
 export function formatReleaseDate(yeardate: string, format?: "year" | "short") {
     const date = new Date(yeardate)
     const dateFormatted = new Intl.DateTimeFormat("en-DK", { day: "2-digit", month: format === "short" ? "short" : "long", year: "numeric" }).format(date);
-    console.log(dateFormatted)
+    // console.log(dateFormatted)
     if (format === "year") return yeardate.slice(0, 4)
     return dateFormatted
 }

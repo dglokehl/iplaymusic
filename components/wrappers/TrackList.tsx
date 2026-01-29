@@ -1,14 +1,13 @@
-import SongCard from "./cards/SongCard"
+import SongCard from "@/components/cards/SongCard"
 
 type TrackListProps = {
     tracks: any[];
     isAlbum?: boolean;
-    className?: string;
 }
 
-export default function TrackList({ tracks, isAlbum, className }: TrackListProps) {
+export default function TrackList({ tracks, isAlbum }: TrackListProps) {
     return (
-        <div className={`space-y-1 ${className ? className : ""}`}>
+        <div className="space-y-1">
             {tracks.map((item: any, i: number) => (
                 <SongCard
                     song={item.track ? item.track : item}

@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { fetchServer } from "@/app/api/fetchServer"
-import type { ListPageType } from "./MapListPageItems"
-import MapListPageItems from "./MapListPageItems"
+import SongCard from "@/components/cards/SongCard"
 
-type ListPageItemsProps = {
+type TrackListLongProps = {
     initFetch: {
         items: any[]
         limit: number;
@@ -13,23 +12,18 @@ type ListPageItemsProps = {
         total: number;
         previous: string;
         next: string;
-        cursors: {
-            after: string | null;
-        }
     };
     route: string;
-    type: ListPageType;
-    className?: string;
+    isAlbum?: boolean;
 }
 
-export default function ListPageItems({ initFetch, route, type, className }: ListPageItemsProps) {
+export default function TrackListLong({ initFetch, route, isAlbum }: TrackListLongProps) {
     const limit = initFetch.limit
-    const [offset, setOffset] = useState(type !== "artist" ? initFetch.offset : 0)
-    const [after, setAfter] = useState(type === "artist" ? initFetch.cursors.after : "")
+    const [offset, setOffset] = useState(initFetch.offset)
 
     const [listItems, setListItems] = useState(initFetch.items)
 
-    const [hasMore, setHasMore] = useState(type === "artist" ? initFetch.cursors.after : (initFetch.offset + limit) < initFetch.total)
+    const [hasMore, setHasMore] = useState((initFetch.offset + limit) < initFetch.total)
     const [loading, setLoading] = useState(false)
     
     const observerRef = useRef<HTMLDivElement | null>(null);
@@ -41,14 +35,12 @@ export default function ListPageItems({ initFetch, route, type, className }: Lis
 
         const nextOffset = offset + limit
 
-        const newFetch = await fetchServer(route, limit, nextOffset, type === "artist" ? after : null)
-        console.log("newFetch", newFetch)
-        setListItems(prev => [...prev, ...type === "artist" ? newFetch.items : newFetch.items])
+        const newFetch = await fetchServer(route, limit, nextOffset)
+        console.log("newFetch:", newFetch)
+        setListItems(prev => [...prev, ...newFetch.items])
 
         setOffset(nextOffset)
-        if (type === "artist") setAfter(newFetch.cursors.after)
-
-        if (type === "artist" ? initFetch.cursors.after : nextOffset + limit >= newFetch.total) setHasMore(false)
+        if (nextOffset + limit >= newFetch.total) setHasMore(false)
         setLoading(false)
     }, [loading, hasMore, offset, limit, route])
 
@@ -74,8 +66,14 @@ export default function ListPageItems({ initFetch, route, type, className }: Lis
 
     return (
         <>
-            <div className={`${type === "track" ? "space-y-1" : "card-grid"} ${className ? className : ""}`}>
-                <MapListPageItems listItems={listItems} type={type} />
+            <div className="space-y-1">
+                {listItems.map((item: any, i: number) => (
+                    <SongCard
+                        song={item.track ? item.track : item}
+                        thumbnail={isAlbum ? false : true}
+                        key={i}
+                    />
+                ))}
             </div>
             {hasMore && <div className="h-px" ref={observerRef}></div>}
         </>

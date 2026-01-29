@@ -1,7 +1,8 @@
 import Main from "@/components/layout/Main"
-import CardSection from "@/components/CardSection"
-
+import BaseSection from "@/components/wrappers/BaseSection"
+import { MapAlbumCards, MapPlaylistCards, MapArtistCards } from "@/components/map/MapCards"
 import { fetchSpotify } from "@/app/api/fetches"
+import TrackList from "@/components/wrappers/TrackList"
 
 export const metadata = {
     title: "Library"
@@ -20,29 +21,22 @@ export default async function MusicLibraryPage() {
     return (
         <Main>
             <h1 className="heading-page">Library</h1>
-            <CardSection
-                heading={{ body: "Your Playlists", button: { body: "View All", href: "/music/playlists" } }}
-                obj={userPlaylists}
-                type="playlists"
-                cardSize="sm"
-            />
-            <CardSection
-                heading={{ body: "Albums", button: { body: "View All", href: "/music/albums" } }}
-                obj={userAlbums}
-                type="userAlbums"
-                cardSize="sm"
-            />
-            <CardSection
-                heading={{ body: "Artists", button: { body: "View All", href: "/music/artists" } }}
-                obj={userArtists.artists}
-                type="artists"
-                cardSize="sm"
-            />
-            <CardSection
-                heading={{ body: "Your Liked Songs", button: { body: "View All", href: "/music/songs" } }}
-                obj={userTracks}
-                type="tracks"
-            />
+
+            <BaseSection heading={{ body: "Your Playlists", button: { href: "/music/playlists" } }}>
+                <MapPlaylistCards playlists={userPlaylists.items} size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Albums", button: { href: "/music/albums" } }}>
+                <MapAlbumCards albums={userAlbums.items} userAlbums size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Artists", button: { href: "/music/artists" } }}>
+                <MapArtistCards artists={userArtists.artists.items} size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Your Liked Songs", button: { href: "/music/songs" } }} customWrapper>
+                <TrackList tracks={userTracks.items} />
+            </BaseSection>
         </Main>
     )
 }

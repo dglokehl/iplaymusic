@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import SongCard from "@/components/cards/SongCard"
-import Card from "@/components/cards/Card"
+import { MapArtistCards } from "@/components/map/MapCards"
 
 type UserTopProps = {
     initItems: any[];
@@ -59,7 +59,7 @@ export default function UserTop({ initItems, type, className }: UserTopProps) {
 
         const res = await fetch(`http://127.0.0.1:3000/api/me/top/${type === "artists" ? "artists" : "tracks"}?time_range=${timeRanges[i].time_range}&limit=10`)
         const newFetch = await res.json()
-        console.log("newFetch", newFetch)
+        console.log("newFetch:", newFetch)
 
         if (i == 0) setItemsShortTerm(newFetch.items)
         if (i == 2) setItemsLongTerm(newFetch.items)
@@ -91,7 +91,7 @@ export default function UserTop({ initItems, type, className }: UserTopProps) {
             )}
             {type === "artists" && items.length > 0 && (
                 <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {items.map((artist: any, i: number) => <Card item={artist} type="artist" key={i} />)}
+                    <MapArtistCards artists={items} />
                 </div>
             )}
 

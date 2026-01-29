@@ -1,6 +1,6 @@
 import { fetchSpotify } from "@/app/api/fetches";
 import Main from "@/components/layout/Main";
-import ListPageItems from "@/app/(pages)/music/_components/ListPageItems";
+import ReleaseListItems from "@/components/wrappers/ReleaseListItems"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -24,7 +24,7 @@ export default async function UserPlaylistsPage({ params }: { params: Promise<{ 
     return (
         <Main>
             <h1 className="heading-page">{user.display_name}'s Playlists</h1>
-            <ListPageItems
+            <ReleaseListItems
                 initFetch={playlists}
                 route={route}
                 type="playlist"

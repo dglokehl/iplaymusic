@@ -2,7 +2,8 @@ import { fetchSpotify } from "@/app/api/fetches"
 import { getCoverImage } from "@/utils/helpers"
 import Main from "@/components/layout/Main"
 import UserTop from "./_components/UserTop"
-import CardSection from "@/components/CardSection"
+import BaseSection from "@/components/wrappers/BaseSection"
+import { MapPlaylistCards } from "@/components/map/MapCards"
 
 export const metadata = {
     title: "Profile"
@@ -10,15 +11,15 @@ export const metadata = {
 
 export default async function ProfilePage() {
     const profile = await fetchSpotify("https://api.spotify.com/v1/me")
-    console.log("profile", profile)
+    console.log("profile:", profile)
 
     const topArtists = await fetchSpotify("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10")
-    console.log("topArtists", topArtists.items)
+    console.log("topArtists:", topArtists.items)
     const topTracks = await fetchSpotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10")
-    console.log("topTracks", topTracks.items)
+    console.log("topTracks:", topTracks.items)
     
     const playlists = await fetchSpotify("https://api.spotify.com/v1/me/playlists?limit=10")
-    console.log("playlists", playlists.items)
+    console.log("playlists:", playlists.items)
 
     return (
         <Main className="space-y-8">
@@ -38,11 +39,9 @@ export default async function ProfilePage() {
             <UserTop initItems={topTracks.items} type="tracks" />
             <UserTop initItems={topArtists.items} type="artists" />
 
-            <CardSection
-                heading={{ body: "Public Playlists", button: { body: "View All", href: "/music/playlists" } }}
-                obj={playlists}
-                type="playlists"
-            />
+            <BaseSection heading={{ body: "Your Public Playlists", button: { href: "/music/playlists" } }}>
+                <MapPlaylistCards playlists={playlists.items} />
+            </BaseSection>
         </Main>
     )
 }
