@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { IoPlay } from "react-icons/io5";
 import { formatMilliseconds, getCoverImage } from "@/utils/helpers";
 import MapArtistLinks from "../map/MapArtistLinks";
+import PlayButton from "../buttons/PlayButton";
 
 type SongCardProps = {
     song: any;
@@ -12,9 +12,7 @@ export default function SongCard({ song, thumbnail }: SongCardProps) {
     return (
         <div className="py-2 px-3 flex justify-between items-center gap-6 rounded-lg hover-bg">
             <div className="flex items-center">
-                <figure className="mr-4 p-1 size-7 flex justify-center items-center bg-ipm-gradient rounded-full hover-brightness">
-                    <IoPlay />
-                </figure>
+                <PlayButton song={song} className="mr-4" />
                 {thumbnail &&
                     <Image
                         src={getCoverImage(song.album.images, "xs").url}

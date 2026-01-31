@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchSpotify } from "@/app/api/fetches";
 import { getCoverImage, getTotalLength } from "@/utils/helpers";
-import FavoriteButton from "@/components/FavoriteButton";
+import FavoriteButton from "@/components/buttons/FavoriteButton";
 import DetailsPageLayout from "../../_components/DetailsPageLayout";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
