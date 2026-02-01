@@ -22,6 +22,7 @@ export function MapAlbumCards({ albums, userAlbums, size }: MapAlbumCardsProps) 
         />
     ))
 
+    if (!albums) return
     return albums.map((album: AlbumCardProps, i: number) => (
         <AlbumCard
             album={{
@@ -41,6 +42,7 @@ type MapArtistAlbumCardsProps = {
     size?: CardSize;
 }
 export function MapArtistAlbumCards({ albums, size }: MapArtistAlbumCardsProps) {
+    if (!albums) return
     return albums.map((album, i: number) => (
         <ArtistAlbumCard
             album={{
@@ -62,6 +64,7 @@ type MapPlaylistCardsProps = {
     size?: CardSize;
 }
 export function MapPlaylistCards({ playlists, size }: MapPlaylistCardsProps) {
+    if (!playlists) return
     return playlists.map((playlist, i: number) => (
         <PlaylistCard
             playlist={{
@@ -82,6 +85,7 @@ type MapArtistCardsProps = {
     size?: CardSize;
 }
 export function MapArtistCards({ artists, size }: MapArtistCardsProps) {
+    if (!artists) return
     return artists.map((artist, i: number) => (
         <ArtistCard
             artist={{

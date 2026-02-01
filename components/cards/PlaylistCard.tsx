@@ -12,6 +12,7 @@ export type PlaylistCardProps = {
 }
 
 export default function PlaylistCard({ playlist, size }: { playlist: PlaylistCardProps, size?: CardSize }) {
+    if (!playlist) return
     return (
         <BaseCard
             card={{

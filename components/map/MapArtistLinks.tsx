@@ -7,6 +7,7 @@ type MapArtistLinksProps = {
 }
 
 export default function MapArtistLinks({ artists, className }: MapArtistLinksProps) {
+    if (!artists) return
     return artists.map((artist: any, i: number) => (
         <Fragment key={i}>
             <Link href={`/music/artists/${artist.id}`} className={`hover-75 ${className ? className : ""}`}>

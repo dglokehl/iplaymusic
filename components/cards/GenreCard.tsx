@@ -6,6 +6,7 @@ type GenreCardProps = {
 }
 
 export default function GenreCard({ body, className }: GenreCardProps) {
+    if (!body) return
     return (
         <Link
             href={`/search?q=${body}`}

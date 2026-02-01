@@ -20,6 +20,8 @@ type BaseCardProps = {
 }
 
 export default function BaseCard({ card, size, className }: BaseCardProps) {
+    if (!card) return
+
     let cardSize = "w-48"
     if (size === "xs") cardSize = "w-24"
     if (size === "sm") cardSize = "w-32"

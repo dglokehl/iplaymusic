@@ -8,6 +8,7 @@ type CategoryCardProps = {
 }
 
 export default function CategoryCard({ category, className, ...rest }: CategoryCardProps) {
+    if (!category) return
     return (
         <Link href={`/search?q=${category.name}`} className="rounded-lg overflow-hidden" {...rest}>
             <article className="relative rounded-lg hover-bg">

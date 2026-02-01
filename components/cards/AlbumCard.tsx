@@ -10,6 +10,7 @@ export type AlbumCardProps = {
 }
 
 export default function AlbumCard({ album, size }: { album: AlbumCardProps, size?: CardSize }) {
+    if (!album) return
     return (
         <BaseCard
             card={{
@@ -36,6 +37,7 @@ export type ArtistAlbumCardProps = {
 }
 
 export function ArtistAlbumCard({ album, size }: { album: ArtistAlbumCardProps, size?: CardSize }) {
+    if (!album) return
     return (
         <BaseCard
             card={{

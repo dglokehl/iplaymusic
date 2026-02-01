@@ -6,6 +6,7 @@ type TrackListProps = {
 }
 
 export default function TrackList({ tracks, isAlbum }: TrackListProps) {
+    if (!tracks) return
     return (
         <div className="space-y-1">
             {tracks.map((item: any, i: number) => (

@@ -8,6 +8,7 @@ export type ArtistCardProps = {
 }
 
 export default function ArtistCard({ artist, size }: { artist: ArtistCardProps, size?: CardSize }) {
+    if (!artist) return
     return (
         <BaseCard
             card={{

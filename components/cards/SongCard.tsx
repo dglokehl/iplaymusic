@@ -9,6 +9,7 @@ type SongCardProps = {
 }
 
 export default function SongCard({ song, thumbnail }: SongCardProps) {
+    if (!song) return
     return (
         <div className="py-2 px-3 flex justify-between items-center gap-6 rounded-lg hover-bg">
             <div className="flex items-center">
