@@ -11,7 +11,7 @@ export default async function UserAlbumsPage() {
     const route = "me/albums"
 
     const albums = await fetchSpotify(`https://api.spotify.com/v1/${route}?limit=${limit}&offset=0`)
-    console.log("albums:", albums)
+    // console.log("albums:", albums)
 
     return (
         <Main>
@@ -19,7 +19,7 @@ export default async function UserAlbumsPage() {
             <ReleaseListItems
                 initFetch={albums}
                 route={route}
-                type="album"
+                type="userAlbum"
             />
         </Main>
     )

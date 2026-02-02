@@ -13,10 +13,10 @@ export default async function MusicLibraryPage() {
     const userPlaylists = await fetchSpotify("https://api.spotify.com/v1/me/playlists?limit=10")
     const userArtists = await fetchSpotify("https://api.spotify.com/v1/me/following?type=artist&limit=10")
     const userTracks = await fetchSpotify("https://api.spotify.com/v1/me/tracks?limit=4")
-    console.log("userAlbums:", userAlbums)
-    console.log("userPlaylists:", userPlaylists)
-    console.log("userArtists:", userArtists.artists)
-    console.log("userTracks:", userTracks)
+    // console.log("userAlbums:", userAlbums)
+    // console.log("userPlaylists:", userPlaylists)
+    // console.log("userArtists:", userArtists.artists)
+    // console.log("userTracks:", userTracks)
     
     return (
         <Main>

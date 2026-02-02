@@ -11,7 +11,7 @@ export default async function UserPlaylistsPage() {
     const route = "me/playlists"
 
     const playlists = await fetchSpotify(`https://api.spotify.com/v1/${route}?limit=${limit}&offset=0`)
-    console.log("playlists:", playlists)
+    // console.log("playlists:", playlists)
 
     return (
         <Main>

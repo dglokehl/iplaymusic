@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function BrowsePage() {
     const categories = await fetchSpotify("https://api.spotify.com/v1/browse/categories")
-    console.log("categories:", categories.categories)
+    // console.log("categories:", categories.categories)
 
     return (
         <Main>

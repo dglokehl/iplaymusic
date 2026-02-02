@@ -11,7 +11,7 @@ export default async function UserArtistsPage() {
     const route = "me/following"
 
     const artists = await fetchSpotify(`https://api.spotify.com/v1/${route}?type=artist&limit=${limit}`)
-    console.log("artists:", artists.artists)
+    // console.log("artists:", artists.artists)
 
     return (
         <Main>

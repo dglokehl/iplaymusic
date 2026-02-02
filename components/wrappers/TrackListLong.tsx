@@ -36,7 +36,7 @@ export default function TrackListLong({ initFetch, route, isAlbum }: TrackListLo
         const nextOffset = offset + limit
 
         const newFetch = await fetchServer(route, limit, nextOffset)
-        console.log("newFetch:", newFetch)
+        // console.log("newFetch:", newFetch)
         setListItems(prev => [...prev, ...newFetch.items])
 
         setOffset(nextOffset)

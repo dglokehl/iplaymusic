@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchSpotify } from "@/app/api/fetches";
 import { getCoverImage, getTotalLength } from "@/utils/helpers";
+import { getUserId } from "@/utils/cookies";
 import FavoriteButton from "@/components/buttons/FavoriteButton";
 import DetailsPageLayout from "../../_components/DetailsPageLayout";
 
@@ -16,17 +17,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PlaylistPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    console.log("params/id:", id)
+    // console.log("params/id:", id)
 
     const playlistDetails = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}?fields=collaborative,description,followers,images,name,owner,public`)
-    console.log("playlistDetails:", playlistDetails)
+    // console.log("playlistDetails:", playlistDetails)
 
     const limit = 50
     const playlistItems = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}/tracks?limit=${limit}&offset=0`)
-    console.log("playlistItems:", playlistItems)
+    // console.log("playlistItems:", playlistItems)
 
     const userPlaylist = await fetchSpotify(`https://api.spotify.com/v1/playlists/${id}/followers/contains`)
     const isFavorite = userPlaylist[0]
+
+    const userId = await getUserId()
+    // console.log("userId:", userId)
 
     return (
         <DetailsPageLayout
@@ -37,7 +41,7 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
                 <>
                     <Image
                         src={getCoverImage(playlistDetails.images).url}
-                        alt="Background element"
+                        alt={playlistDetails.name}
                         width={getCoverImage(playlistDetails.images).width}
                         height={getCoverImage(playlistDetails.images).height}
                         className="size-48 sm:size-56 object-cover rounded hover-scale"
@@ -50,7 +54,7 @@ export default async function PlaylistPage({ params }: { params: Promise<{ id: s
                     </div>
                     <div className="w-full flex justify-between items-center gap-8">
                         <p className="text-sm font-light text-grey-light">{playlistDetails.followers.total} saves</p>
-                        <FavoriteButton isFavorite={isFavorite} />
+                        {playlistDetails.owner.id !== userId && <FavoriteButton isFavorite={isFavorite} />}
                     </div>
                 </>
             }

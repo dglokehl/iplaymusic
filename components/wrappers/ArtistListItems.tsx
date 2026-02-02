@@ -35,7 +35,7 @@ export default function ArtistListItems({ initFetch, route }: ArtistListItemsPro
         setLoading(true)
 
         const newFetch = await fetchServer(route, limit, 0, after)
-        console.log("newFetch:", newFetch)
+        // console.log("newFetch:", newFetch)
         setListItems(prev => [...prev, ...newFetch.items])
 
         setAfter(newFetch.cursors.after)

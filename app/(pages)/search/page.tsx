@@ -3,12 +3,20 @@ import Main from "@/components/layout/Main"
 import SearchResults from "./_components/SearchResults";
 import SearchFormWrapper from "@/components/wrappers/SearchFormWrapper";
 
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q: string }> }) {
+    const { q } = await searchParams;
+
+    return {
+        title: q
+    }
+}
+
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q: string }> }) {
     const { q } = await searchParams;
-    console.log("q:", q)
+    // console.log("q:", q)
 
     const results = await fetchSpotify(`https://api.spotify.com/v1/search?q=${q}&type=album,playlist,artist,track`)
-    console.log("results:", results)
+    // console.log("results:", results)
 
     return (
         <Main>

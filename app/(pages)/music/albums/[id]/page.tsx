@@ -16,14 +16,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function AlbumPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    console.log("params/id:", id)
+    // console.log("params/id:", id)
 
     const album = await fetchSpotify(`https://api.spotify.com/v1/albums/${id}`)
-    console.log("album:", album)
+    // console.log("album:", album)
 
     const limit = 50
     const albumTracks = await fetchSpotify(`https://api.spotify.com/v1/albums/${id}/tracks?limit=${limit}&offset=0`)
-    console.log("albumTracks:", albumTracks)
+    // console.log("albumTracks:", albumTracks)
 
     const userAlbum = await fetchSpotify(`https://api.spotify.com/v1/me/albums/contains?ids=${id}`)
     const isFavorite = userAlbum[0]
@@ -37,7 +37,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
                 <>
                     <Image
                         src={getCoverImage(album.images).url}
-                        alt="Background element"
+                        alt={album.name}
                         width={getCoverImage(album.images).width}
                         height={getCoverImage(album.images).height}
                         className="size-48 sm:size-56 object-cover rounded hover-scale"
@@ -57,7 +57,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
             bottomContent={
                 <>
                     <p>{formatReleaseDate(album.release_date)}</p>
-                    <p>{getTotalLength(album.tracks.items)}</p>
+                    <p>{album.total_tracks} songs · {getTotalLength(album.tracks.items)}</p>
                     <div className="mt-2 text-2xs">
                         {album.copyrights.map((copyright: any, i: number) => (
                             <p key={i}>{copyright.text}</p>

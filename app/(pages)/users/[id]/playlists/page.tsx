@@ -19,7 +19,7 @@ export default async function UserPlaylistsPage({ params }: { params: Promise<{ 
 
     const user = await fetchSpotify(`https://api.spotify.com/v1/users/${id}`);
     const playlists = await fetchSpotify(`https://api.spotify.com/v1/${route}?limit=${limit}&offset=0`)
-    console.log("playlists:", playlists)
+    // console.log("playlists:", playlists)
 
     return (
         <Main>

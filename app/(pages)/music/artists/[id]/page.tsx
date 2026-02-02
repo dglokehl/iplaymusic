@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { fetchSpotify } from "@/app/api/fetches"
+import { formatLargeNumber, getCoverImage } from "@/utils/helpers";
+import { MapArtistAlbumCards } from "@/components/map/MapCards"
 import Main from "@/components/layout/Main";
 import TopTracks from "./TopTracks";
 import GenreCard from "@/components/cards/GenreCard";
 import BaseSection from "@/components/wrappers/BaseSection"
-import { MapArtistAlbumCards } from "@/components/map/MapCards"
+import FollowButton from "@/components/buttons/FollowButton";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -17,29 +19,33 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function ArtistPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    console.log("params/id:", id)
+    // console.log("params/id:", id)
 
     const artist = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}`)
-    console.log("artist", artist)
+    // console.log("artist", artist)
     const artistTopTracks = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}/top-tracks`)
-    console.log("artistTopTracks", artistTopTracks.tracks)
+    // console.log("artistTopTracks", artistTopTracks.tracks)
     const artistAlbums = await fetchSpotify(`https://api.spotify.com/v1/artists/${id}/albums?limit=10`)
-    console.log("artistAlbums", artistAlbums)
+    // console.log("artistAlbums", artistAlbums)
+
+    const isFollowing = await fetchSpotify(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${id}`)
+    // console.log("isFollowing", isFollowing)
 
     return (
         <>
             <section className="wrapper-default mb-2 w-full relative max-xs:aspect-square xs:h-64">
                 <Image
-                    src={artist.images[0].url}
-                    alt={`${artist.name} header image`}
-                    width={artist.images[0].width}
-                    height={artist.images[0].height}
+                    src={getCoverImage(artist.images).url}
+                    alt={artist.name}
+                    width={getCoverImage(artist.images).width}
+                    height={getCoverImage(artist.images).height}
                     className="size-full object-cover absolute top-0 inset-x-0 -z-1 mask-b-to-transparent"
                 />
                 <div className="pt-header px-default pb-9 h-full flex flex-col justify-between">
                     <div>
                         <h1 className="heading-page text-white">{artist.name}</h1>
-                        <p className="mt-3 text-sm font-medium">{artist.followers.total} followers</p>
+                        <p className="mt-3 text-sm font-medium">{formatLargeNumber(artist.followers.total)} followers</p>
+                        <FollowButton followed={isFollowing[0]} className="mt-2" />
                     </div>
                     <div className="flex gap-2 overflow-x-scroll scrollbar-hidden">
                         {artist.genres.map((genre: any, i: number) => <GenreCard body={genre} key={i} />)}

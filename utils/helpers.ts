@@ -1,4 +1,9 @@
-import type { CardSize } from "@/components/cards/Card"
+import type { CardSize } from "@/components/cards/BaseCard"
+
+export function formatLargeNumber(input: number) {
+    const formatted = new Intl.NumberFormat("da-DK").format(input)
+    return formatted
+}
 
 export function formatLength(input: number, format?: "short") {
     const hours = Math.floor(input / 60 / 60)

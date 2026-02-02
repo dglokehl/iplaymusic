@@ -11,15 +11,15 @@ export const metadata = {
 
 export default async function ProfilePage() {
     const profile = await fetchSpotify("https://api.spotify.com/v1/me")
-    console.log("profile:", profile)
+    // console.log("profile:", profile)
 
     const topArtists = await fetchSpotify("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10")
-    console.log("topArtists:", topArtists.items)
+    // console.log("topArtists:", topArtists.items)
     const topTracks = await fetchSpotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10")
-    console.log("topTracks:", topTracks.items)
+    // console.log("topTracks:", topTracks.items)
     
     const playlists = await fetchSpotify("https://api.spotify.com/v1/me/playlists?limit=10")
-    console.log("playlists:", playlists.items)
+    // console.log("playlists:", playlists.items)
 
     return (
         <Main className="space-y-8">

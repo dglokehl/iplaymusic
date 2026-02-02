@@ -6,6 +6,7 @@ import { IoPlay, IoPause, IoPlayBack, IoPlayForward, IoShuffle, IoRepeat, IoClos
 import { formatMilliseconds } from "@/utils/helpers";
 import MapArtistLinks from "./map/MapArtistLinks";
 import CoverImage from "./CoverImage";
+import Link from "next/link";
 
 type MusicPlayerProps = {
     track?: {
@@ -13,6 +14,7 @@ type MusicPlayerProps = {
         artists: any[];
         album: {
             images: any[]
+            id: string;
         }
     }
     className?: string;
@@ -70,6 +72,14 @@ export default function MusicPlayer({ track, className }: MusicPlayerProps) {
         setCurrentTime(0)
     }
 
+    const playerRestart = () => {
+        if (!playerRef.current) return
+
+        playerRef.current.pause()
+        playerRef.current.currentTime = 0
+        playerEnded()
+    }
+
 
     return (
         <div className={`size-full flex flex-col justify-between items-center ${className ? className : ""}`}>
@@ -83,26 +93,32 @@ export default function MusicPlayer({ track, className }: MusicPlayerProps) {
                         className="w-full absolute top-1/2 -translate-y-1/2 -z-1"
                     />
                     {track ? (
-                        <CoverImage
-                            images={track.album.images}
-                            alt={track.name}
-                            className="max-w-80 max-2xs:max-w-56 w-full rounded hover-scale"
-                        />
+                        <Link href={`/music/albums/${track.album.id}`} className="max-w-80 max-2xs:max-w-56 w-full">
+                            <CoverImage
+                                images={track.album.images}
+                                alt={track.name}
+                                className="w-full rounded shadow-lg hover-scale"
+                            />
+                        </Link>
                     ) : (
                         <Image
                             src="/placeholder.png"
-                            alt="Background element"
+                            alt="Album cover"
                             width={400}
                             height={400}
-                            className="max-w-80 max-2xs:max-w-56 w-full rounded hover-scale"
+                            className="max-w-80 max-2xs:max-w-56 w-full rounded shadow-lg hover-scale"
                         />
                     )}
                 </div>
 
                 <div className="px-6 flex flex-col items-center gap-5">
                     <div className="space-y-1 text-center">
-                        <p className="text-xl font-bold">{track ? track.name : "Song title"}</p>
-                        <p className="font-light text-grey-light">{track ? <MapArtistLinks artists={track.artists} /> : "Artist"}</p>
+                        <p className="text-xl font-bold">
+                            {track ? track.name : "Song title"}
+                        </p>
+                        <p className="font-light text-grey-light">
+                            {track ? <MapArtistLinks artists={track.artists} /> : "Artist"}
+                        </p>
                     </div>
 
                     <div className="w-full *:w-full">
@@ -122,11 +138,11 @@ export default function MusicPlayer({ track, className }: MusicPlayerProps) {
                     <div className="flex justify-center items-center gap-6 *:size-7 *:hover-75">
                         <IoShuffle className={shuffle ? "stroke-[url(#ipm-gradient)]" : ""} onClick={() => setShuffle(!shuffle)} />
 
-                        <IoPlayBack />
+                        <IoPlayBack onClick={playerRestart} />
                         <figure className="p-3 size-16! *:size-full flex justify-center items-center bg-ipm-gradient rounded-full" onClick={togglePlayback}>
                             {!isPlaying ? <IoPlay /> : <IoPause />}
                         </figure>
-                        <IoPlayForward />
+                        <IoPlayForward onClick={playerRestart} />
 
                         <IoRepeat className={loop ? "stroke-[url(#ipm-gradient)]" : ""} onClick={toggleLoop} />
                     </div>

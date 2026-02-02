@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { fetchServer } from "@/app/api/fetchServer"
-import { MapAlbumCards, MapPlaylistCards } from "@/components/map/MapCards"
+import { MapAlbumCards, MapArtistAlbumCards, MapPlaylistCards } from "@/components/map/MapCards"
 
 type ReleaseListItemsProps = {
     initFetch: {
@@ -14,7 +14,7 @@ type ReleaseListItemsProps = {
         next: string;
     };
     route: string;
-    type: "album" | "playlist"
+    type: "album" | "artistAlbum" | "userAlbum" | "playlist"
 }
 
 export default function ReleaseListItems({ initFetch, route, type }: ReleaseListItemsProps) {
@@ -36,7 +36,7 @@ export default function ReleaseListItems({ initFetch, route, type }: ReleaseList
         const nextOffset = offset + limit
 
         const newFetch = await fetchServer(route, limit, nextOffset)
-        console.log("newFetch:", newFetch)
+        // console.log("newFetch:", newFetch)
         setListItems(prev => [...prev, ...newFetch.items])
 
         setOffset(nextOffset)
@@ -67,7 +67,9 @@ export default function ReleaseListItems({ initFetch, route, type }: ReleaseList
     return (
         <>
             <div className="card-grid">
-                {type === "album" && <MapAlbumCards albums={listItems} size="lg" userAlbums />}
+                {type === "album" && <MapAlbumCards albums={listItems} size="lg" />}
+                {type === "userAlbum" && <MapAlbumCards albums={listItems} size="lg" userAlbums />}
+                {type === "artistAlbum" && <MapArtistAlbumCards albums={listItems} size="lg" />}
                 {type === "playlist" && <MapPlaylistCards playlists={listItems} size="lg" />}
             </div>
             {hasMore && <div className="h-px" ref={observerRef}></div>}

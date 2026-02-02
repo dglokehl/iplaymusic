@@ -59,7 +59,7 @@ export default function UserTop({ initItems, type, className }: UserTopProps) {
 
         const res = await fetch(`http://127.0.0.1:3000/api/me/top/${type === "artists" ? "artists" : "tracks"}?time_range=${timeRanges[i].time_range}&limit=10`)
         const newFetch = await res.json()
-        console.log("newFetch:", newFetch)
+        // console.log("newFetch:", newFetch)
 
         if (i == 0) setItemsShortTerm(newFetch.items)
         if (i == 2) setItemsLongTerm(newFetch.items)

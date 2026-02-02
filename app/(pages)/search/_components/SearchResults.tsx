@@ -8,13 +8,13 @@ import SongCard from "@/components/cards/SongCard"
 
 type SearchResultsProps = {
     results: {
+        artists: {
+            items: any[];
+        }
         albums: {
             items: any[];
         }
         playlists: {
-            items: any[];
-        }
-        artists: {
             items: any[];
         }
         tracks: {
@@ -27,7 +27,9 @@ type SearchResultsProps = {
 const buttons = ["Artists", "Albums", "Playlists", "Songs"]
 
 export default function SearchResults({ results, className }: SearchResultsProps) {
-    const [index, setIndex] = useState(0);
+    let startIndex = 0
+    if (results.artists.items.length < 1 ) startIndex = 1
+    const [index, setIndex] = useState(startIndex);
 
     return (
         <div className={`space-y-4 ${className ? className : ""}`}>
