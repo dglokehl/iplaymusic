@@ -7,9 +7,9 @@ export async function proxy(request: NextRequest) {
     // console.log(request)
     const cookieStore = await cookies()
     const accessToken = cookieStore.get("IPM_AT")
-    if (!accessToken) return NextResponse.redirect(new URL("/login", request.url))
+    if (!accessToken) return NextResponse.redirect(new URL("/landing", request.url))
 }
 
 export const config = {
-    matcher: ["/", "/browse", "/music/:path*", "/user/:path*"]
+    matcher: ["/", "/browse", "/music/:path*", "/users/:path*", "/profile/:path*"]
 }

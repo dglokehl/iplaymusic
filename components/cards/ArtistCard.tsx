@@ -1,28 +1,27 @@
-import DefaultCard from "./DefaultCard"
-import type { CardSize } from "./DefaultCard"
+import BaseCard, { CardSize } from "./BaseCard"
 
-type ArtistCardProps = {
-    artist: any;
+export type ArtistCardProps = {
+    id: string;
+    images: any[];
+    name: string;
     size?: CardSize;
 }
 
-export default async function ArtistCard({ artist, size }: ArtistCardProps) {
+export default function ArtistCard({ artist, size }: { artist: ArtistCardProps, size?: CardSize }) {
+    if (!artist) return
     return (
-        <DefaultCard
-            item={{
-                link: {
-                    href: `/music/artists/${artist.id}`,
+        <BaseCard
+            card={{
+                href: `/music/artists/${artist.id}`,
+                cover: {
+                    images: artist.images,
+                    alt: artist.name,
+                    className: "rounded-full!"
                 },
                 heading: artist.name,
-                image: {
-                    url: artist.images[0].url,
-                    alt: `${artist.name} cover`,
-                    width: 300,
-                    height: 300,
-                    className: "rounded-full"
-                },
-                ...(size && ({ size: size }))
+                ...(artist.size && ({ size: artist.size })),
             }}
+            {...(size && ({ size: size }))}
         />
     )
 }

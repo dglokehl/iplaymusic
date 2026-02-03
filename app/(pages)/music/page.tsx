@@ -1,15 +1,11 @@
-import Wrapper from "@/components/Wrapper"
-import SectionWrapper from "@/components/SectionWrapper"
-import AlbumCard from "@/components/cards/AlbumCard"
-import PlaylistCard from "@/components/cards/PlaylistCard"
-import ArtistCard from "@/components/cards/ArtistCard"
-import SongCard from "@/components/cards/SongCard"
-
+import Main from "@/components/layout/Main"
+import BaseSection from "@/components/wrappers/BaseSection"
+import { MapAlbumCards, MapPlaylistCards, MapArtistCards } from "@/components/map/MapCards"
 import { fetchSpotify } from "@/app/api/fetches"
+import TrackList from "@/components/wrappers/TrackList"
 
-const pageTitle = "Music"
 export const metadata = {
-    title: pageTitle
+    title: "Library"
 }
 
 export default async function MusicLibraryPage() {
@@ -17,34 +13,30 @@ export default async function MusicLibraryPage() {
     const userPlaylists = await fetchSpotify("https://api.spotify.com/v1/me/playlists?limit=10")
     const userArtists = await fetchSpotify("https://api.spotify.com/v1/me/following?type=artist&limit=10")
     const userTracks = await fetchSpotify("https://api.spotify.com/v1/me/tracks?limit=4")
-    console.log("userAlbums:", userAlbums.items)
-    console.log("userPlaylists:", userPlaylists.items)
-    console.log("userArtists:", userArtists.artists.items)
-    console.log("userTracks:", userTracks.items)
+    // console.log("userAlbums:", userAlbums)
+    // console.log("userPlaylists:", userPlaylists)
+    // console.log("userArtists:", userArtists.artists)
+    // console.log("userTracks:", userTracks)
     
     return (
-        <Wrapper title={pageTitle} className="space-y-6">
-            <h2 className="heading-page">Library</h2>
-            <SectionWrapper heading={{ body: "Your Playlists", button: { body: "View All", href: "/music/playlists" } }}>
-                <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {userPlaylists.items.map((item: any, i: number) => <PlaylistCard playlist={item} size="sm" key={i} />)}
-                </div>
-            </SectionWrapper>
-            <SectionWrapper heading={{ body: "Albums", button: { body: "View All", href: "/music/albums"  } }}>
-                <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {userAlbums.items.map((item: any, i: number) => <AlbumCard album={item.album} size="sm" key={i} />)}
-                </div>
-            </SectionWrapper>
-            <SectionWrapper heading={{ body: "Artists", button: { body: "View All", href: "/music/artists" } }}>
-                <div className="flex overflow-x-scroll scrollbar-hidden">
-                    {userArtists.artists.items.map((item: any, i: number) => <ArtistCard artist={item} size="sm" key={i} />)}
-                </div>
-            </SectionWrapper>
-            <SectionWrapper heading={{ body: "Your Liked Songs", button: { body: "View All", href: "/music/songs" } }}>
-                <div className="space-y-1">
-                    {userTracks.items.map((item: any, i: number) => <SongCard song={item.track} key={i} />)}
-                </div>
-            </SectionWrapper>
-        </Wrapper>
+        <Main>
+            <h1 className="heading-page">Library</h1>
+
+            <BaseSection heading={{ body: "Your Playlists", button: { href: "/music/playlists" } }}>
+                <MapPlaylistCards playlists={userPlaylists.items} size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Albums", button: { href: "/music/albums" } }}>
+                <MapAlbumCards albums={userAlbums.items} userAlbums size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Artists", button: { href: "/music/artists" } }}>
+                <MapArtistCards artists={userArtists.artists.items} size="sm" />
+            </BaseSection>
+
+            <BaseSection heading={{ body: "Your Liked Songs", button: { href: "/music/songs" } }} customWrapper>
+                <TrackList tracks={userTracks.items} />
+            </BaseSection>
+        </Main>
     )
 }

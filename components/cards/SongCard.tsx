@@ -1,6 +1,8 @@
+import Link from "next/link";
 import Image from "next/image";
-import { IoPlay } from "react-icons/io5";
-import { formatMilliseconds } from "@/utils/helpers";
+import { formatMilliseconds, getCoverImage } from "@/utils/helpers";
+import MapArtistLinks from "../map/MapArtistLinks";
+import PlayButton from "../buttons/PlayButton";
 
 type SongCardProps = {
     song: any;
@@ -8,45 +10,42 @@ type SongCardProps = {
 }
 
 export default function SongCard({ song, thumbnail }: SongCardProps) {
+    if (!song) return
     return (
         <div className="py-2 px-3 flex justify-between items-center gap-6 rounded-lg hover-bg">
-            <div className="flex items-center">
-                <figure className="mr-4 p-1 size-7 flex justify-center items-center bg-ipm-gradient rounded-full hover-brightness">
-                    <IoPlay />
-                </figure>
-                {thumbnail &&
-                    <Image
-                        src={!song.is_local ? song.album.images[0].url : "/placeholder.png"}
-                        alt="Background element"
-                        width={!song.is_local ? song.album.images[0].width : 300}
-                        height={!song.is_local ? song.album.images[0].height : 300}
-                        className="mr-2.5 size-10 rounded"
-                    />
-                }
-                <div className="flex-1">
-                    <p className="text-sm font-bold line-clamp-1">{song.name}</p>
-                    <p className="text-xs font-light text-grey-light line-clamp-1">{song.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name)}</p>
+            <div className="flex items-center flex-1">
+                <PlayButton song={song} className="mr-4 shrink-0" />
+                {thumbnail && (
+                    <>
+                        {song.album.id ? (
+                            <Link href={`/music/albums/${song.album.id}`} className="hover-scale shrink-0">
+                                <Image
+                                    src={getCoverImage(song.album.images, "xs").url}
+                                    alt={song.name}
+                                    width={getCoverImage(song.album.images, "xs").width}
+                                    height={getCoverImage(song.album.images, "xs").height}
+                                    className="mr-2.5 size-10 rounded"
+                                />
+                            </Link>
+                        ) : (
+                            <Image
+                                src={getCoverImage(song.album.images, "xs").url}
+                                alt={song.name}
+                                width={getCoverImage(song.album.images, "xs").width}
+                                height={getCoverImage(song.album.images, "xs").height}
+                                className="mr-2.5 size-10 rounded shrink-0"
+                            />
+                        )}
+                    </>
+                )}
+                <div className="shrink">
+                    <p className="text-sm font-bold line-clamp-1 text-clip break-all">{song.name}</p>
+                    <p className="text-xs font-light text-grey-light line-clamp-1 text-clip break-all">
+                        <MapArtistLinks artists={song.artists} />
+                    </p>
                 </div>
             </div>
-            <p className="text-xs font-light text-grey-light">{formatMilliseconds(song.duration_ms)}</p>
+            <p className="text-xs font-light text-grey-light shrink-0">{formatMilliseconds(song.duration_ms)}</p>
         </div>
     )
-    // return (
-    //     <DefaultCard
-    //         item={{
-    //             link: {
-    //                 href: `/music/songs/${song.id}`
-    //             },
-    //             heading: song.name,
-    //             subheading: song.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name),
-    //             image: {
-    //                 url: song.album.images[0].url,
-    //                 alt: `${song.name} cover`,
-    //                 width: song.album.images[0].width,
-    //                 height: song.album.images[0].height
-    //             },
-    //             ...(size && ({ size: size }))
-    //         }}
-    //     />
-    // )
 }

@@ -6,7 +6,20 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             new URL("https://**.scdn.co/**"),
             new URL("https://**.spotifycdn.com/**"),
+            {
+                protocol: "https",
+                hostname: "**.xx.fbcdn.net",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "**.fbsbx.com",
+                port: "",
+                pathname: "/**",
+            },
         ],
+        qualities: [25, 50, 75, 100],
     },
 };
 

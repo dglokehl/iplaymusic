@@ -1,28 +1,55 @@
-import DefaultCard from "./DefaultCard"
-import type { CardSize } from "./DefaultCard"
+import BaseCard, { CardSize } from "./BaseCard"
+import MapArtistLinks from "../map/MapArtistLinks"
+import { formatReleaseDate } from "@/utils/helpers"
 
-type AlbumCardProps = {
-    album: any;
-    size?: CardSize;
+export type AlbumCardProps = {
+    id: string;
+    images: any[];
+    name: string;
+    artists: any[];
 }
 
-export default function AlbumCard({ album, size }: AlbumCardProps) {
+export default function AlbumCard({ album, size }: { album: AlbumCardProps, size?: CardSize }) {
+    if (!album) return
     return (
-        <DefaultCard
-            item={{
-                link: {
-                    href: `/music/albums/${album.id}`
+        <BaseCard
+            card={{
+                href: `/music/albums/${album.id}`,
+                cover: {
+                    images: album.images,
+                    alt: album.name,
                 },
                 heading: album.name,
-                subheading: album.artists.map((artist: any, i: number) => i >= 1 ? `, ${artist.name}` : artist.name),
-                image: {
-                    url: album.images[0].url,
-                    alt: `${album.name} cover`,
-                    width: album.images[0].width,
-                    height: album.images[0].height
-                },
-                ...(size && ({ size: size }))
+                subheading: <MapArtistLinks artists={album.artists} className="pointer-events-auto" />,
             }}
+            {...(size && ({ size: size }))}
+        />
+    )
+}
+
+
+export type ArtistAlbumCardProps = {
+    id: string;
+    images: any[];
+    name: string;
+    release_date: string;
+    album_type: string;
+}
+
+export function ArtistAlbumCard({ album, size }: { album: ArtistAlbumCardProps, size?: CardSize }) {
+    if (!album) return
+    return (
+        <BaseCard
+            card={{
+                href: `/music/albums/${album.id}`,
+                cover: {
+                    images: album.images,
+                    alt: `${album.name} cover`,
+                },
+                heading: album.name,
+                subheading: <>{formatReleaseDate(album.release_date, "year")} · <span className="capitalize">{album.album_type}</span></>,
+            }}
+            {...(size && ({ size: size }))}
         />
     )
 }

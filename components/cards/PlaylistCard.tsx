@@ -1,28 +1,30 @@
-import DefaultCard from "./DefaultCard"
-import type { CardSize } from "./DefaultCard"
+import Link from "next/link"
+import BaseCard, { CardSize } from "./BaseCard"
 
-type PlaylistCardProps = {
-    playlist: any;
-    size?: CardSize;
+export type PlaylistCardProps = {
+    id: string;
+    images: any[];
+    name: string;
+    owner: {
+        id: string;
+        display_name: string;
+    }
 }
 
-export default async function PlaylistCard({ playlist, size }: PlaylistCardProps) {
+export default function PlaylistCard({ playlist, size }: { playlist: PlaylistCardProps, size?: CardSize }) {
+    if (!playlist) return
     return (
-        <DefaultCard
-            item={{
-                link: {
-                    href: `/music/playlists/${playlist.id}`,
+        <BaseCard
+            card={{
+                href: `/music/playlists/${playlist.id}`,
+                cover: {
+                    images: playlist.images,
+                    alt: playlist.name,
                 },
                 heading: playlist.name,
-                subheading: playlist.owner.display_name,
-                image: {
-                    url: playlist.images[0].url,
-                    alt: `${playlist.name} cover`,
-                    width: 300,
-                    height: 300
-                },
-                ...(size && ({ size: size }))
+                subheading: <Link href={`/users/${playlist.owner.id}`} className="hover-75 pointer-events-auto">{playlist.owner.display_name}</Link>,
             }}
+            {...(size && ({ size: size }))}
         />
     )
 }

@@ -3,15 +3,16 @@
 @theme {
     --spacing-default: 1.25rem;
 
-    --spacing-header: 4.6875rem;
-    --height-header: 4.6875rem;
+    --spacing-header: 3.5rem;
+    --height-header: 3.5rem;
 
     --spacing-footer: 4.0625rem;
     --height-footer: 4.0625rem;
 
     --breakpoint-xs: 32rem;
-    --breakpoint-2xs: 22.5rem;
-    --breakpoint-3xs: 18.75rem;
+    --breakpoint-2xs: 25rem;
+    --breakpoint-3xs: 22.5rem;
+    --breakpoint-4xs: 18.75rem;
 
     --text-2xs: 0.625rem;
 
@@ -36,6 +37,10 @@
 
 /* --- HOVER UTILITIES --- */
 
+@utility hover-none {
+    @apply cursor-pointer select-none duration-75;
+}
+
 @utility hover-75 {
     @apply cursor-pointer select-none duration-75 hover:opacity-75;
 }
@@ -56,11 +61,17 @@
 /* --- COLOR UTILITIES --- */
 
 @utility bg-ipm-gradient {
+    @apply bg-linear-to-tl from-ipm-orange to-ipm-magenta;
+}
+@utility bg-ipm-gradient-reverse {
     @apply bg-linear-to-br from-ipm-orange to-ipm-magenta;
 }
 
 @utility bg-ipm-gradient-text {
     @apply inline-block bg-ipm-gradient bg-clip-text text-transparent;
+}
+@utility bg-ipm-gradient-text-reverse {
+    @apply inline-block bg-ipm-gradient-reverse bg-clip-text text-transparent;
 }
 
 
@@ -70,6 +81,35 @@
     @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
+@utility wrapper-default {
+    @apply mx-auto max-w-5xl;
+}
+
+@utility card-grid {
+    @apply grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6;
+}
+
+@utility progress-rounded-full {
+    @apply rounded-full [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-value]:rounded-full [&::-moz-progress-bar]:rounded-full;
+}
+
+@utility progress-value-ipm-gradient {
+    @apply [&::-webkit-progress-value]:bg-ipm-gradient [&::-moz-progress-bar]:bg-ipm-gradient;
+}
+
+@utility range-moz-default {
+    @apply [&::-moz-range-track]:h-1 [&::-moz-range-track]:bg-ipm-magenta-light [&::-moz-range-track]:rounded-full [&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:bg-ipm-magenta-light [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:outline-ipm-magenta-light/35 [&::-moz-range-thumb]:outline-0 [&::-moz-range-thumb]:hover:outline-5 [&::-moz-range-thumb]:hover-none [&::-moz-range-progress]:h-1 [&::-moz-range-progress]:bg-ipm-gradient [&::-moz-range-progress]:rounded-l-full;
+}
+@utility range-webkit-default {
+    @apply [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:-mt-1.25 [&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:bg-ipm-magenta-light [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:outline-ipm-magenta-light/35 [&::-webkit-slider-thumb]:outline-0 [&::-webkit-slider-thumb]:hover:outline-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:hover-none [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:bg-ipm-gradient [&::-webkit-slider-runnable-track]:rounded-l-full;
+}
+@utility range-ms-default {
+    @apply [&::-ms-track]:w-full [&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:text-transparent [&::-ms-thumb]:appearance-none [&::-ms-thumb]:size-3.5 [&::-ms-thumb]:bg-ipm-magenta-light [&::-ms-thumb]:border-0 [&::-ms-thumb]:outline-ipm-magenta-light/35 [&::-ms-thumb]:outline-0 [&::-ms-thumb]:hover:outline-5 [&::-ms-thumb]:hover-none [&::-ms-track]:h-1 [&::-ms-track]:bg-ipm-gradient [&::-ms-track]:rounded-l-full;
+}
+@utility range-default {
+    @apply w-full appearance-none bg-transparent focus:outline-0 range-moz-default range-webkit-default range-ms-default;
+}
+
 
 /* --- COMPONENTS --- */
 
@@ -77,4 +117,8 @@
     .heading-page {
         @apply text-4xl font-bold bg-ipm-gradient-text;
     }
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
 }
